@@ -20,14 +20,26 @@ class App extends Component {
 
     })
     }
-  
+  messageRead = (id) => {
+    console.log('messageRead',id)
+    const updatedMessages = this.state.messages.map(message =>{
+      if (message.id === id){
+        message.read =  !message.read;
+      }
+      return message;
+    })
+
+    this.setState({
+      message: updatedMessages
+    })
+  }
   
   
   render() {
     return (
       <div className="App">
         <Toolbar></Toolbar>
-        <MessageList messages={this.state.messages}></MessageList>
+        <MessageList messages={this.state.messages} messageRead={this.messageRead}></MessageList>
           </div>
     );
   }
