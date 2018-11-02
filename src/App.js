@@ -20,7 +20,28 @@ class App extends Component {
 
     })
     }
-  messageRead = async (id) => {
+
+  markAsReadButtonClicked = () => {
+    console.log('markAsReadButtonLambchop')
+    
+  }
+
+  messageSelected = (id) => {
+    console.log('messageSelected', id)
+    
+    const updatedMessages = this.state.messages.map(message =>{
+      if (message.id === id){
+        message.selected =  !message.selected;
+      }
+      return message;
+    })
+
+    this.setState({
+      message: updatedMessages
+    })
+  }
+  
+    messageRead = async (id) => {
     console.log('messageRead',id)
     let message = {
       messageIds: [id],
@@ -53,8 +74,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Toolbar></Toolbar>
-        <MessageList messages={this.state.messages} messageRead={this.messageRead}></MessageList>
+        <Toolbar markAsReadButtonClicked={this.markAsReadButtonClicked}></Toolbar>
+        <MessageList messages={this.state.messages} messageRead={this.messageRead} 
+        messageSelected={this.messageSelected}></MessageList>
           </div>
     );
   }
